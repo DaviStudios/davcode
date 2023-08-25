@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTER</title>
+</head>
+<body>
+    <h1>REGISTER</h1>
+    <label for="discordUsername">Discord Username:</label>
+    <input type="text" id="discordUsername" placeholder="Enter Discord Username">
+    <br>
+    <label for="robloxUsername">Roblox Username:</label>
+    <input type="text" id="robloxUsername" placeholder="Enter Roblox Username">
+    <br>
+    <button id="sendButton">Send to Discord</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sendButton = document.getElementById("sendButton");
+            sendButton.addEventListener("click", sendData);
+
+            function sendData() {
+                const discordUsername = document.getElementById("discordUsername").value;
+                const robloxUsername = document.getElementById("robloxUsername").value;
+
+                if (discordUsername && robloxUsername) {
+                    const webhookUrl = "https://discord.com/api/webhooks/1144580958721421384/-xLEc-LG5tEl_PXpR_-ngApgbAUeEl8CdKMF1HfCTredQjXKUku3phuDaIIHIq9K-LDi";
+                    const message = `Discord Username: ${discordUsername}\nRoblox Username: ${robloxUsername}`;
+
+                    const requestData = {
+                        content: message
+                    };
+
+                    fetch(webhookUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("User info sent to Discord!");
+                        } else {
+                            alert("Failed to send user info to Discord.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("An error occurred: " + error);
+                    });
+                } else {
+                    alert("Please fill in both Discord and Roblox usernames.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
