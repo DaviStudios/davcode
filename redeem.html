@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Webhook Sender</title>
+</head>
+<body>
+    <h1>Discord Webhook Sender</h1>
+    <label for="discordInput">Discord Webhook URL:</label>
+    <input type="text" id="discordInput" placeholder="Enter Discord Webhook URL">
+    <br>
+    <label for="codeInput">Code:</label>
+    <textarea id="codeInput" rows="4" cols="50" placeholder="Enter your code"></textarea>
+    <br>
+    <button id="sendButton">Send to Discord</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sendButton = document.getElementById("sendButton");
+            sendButton.addEventListener("click", sendData);
+
+            function sendData() {
+                const discordInput = document.getElementById("discordInput").value;
+                const codeInput = document.getElementById("codeInput").value;
+
+                if (discordInput && codeInput) {
+                    const requestData = {
+                        content: codeInput
+                    };
+
+                    fetch(discordInput, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(requestData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Code sent to Discord!");
+                        } else {
+                            alert("Failed to send code to Discord.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("An error occurred: " + error);
+                    });
+                } else {
+                    alert("Please fill in both Discord Webhook URL and code.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
